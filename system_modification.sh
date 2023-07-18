@@ -82,7 +82,7 @@ create_user_account() {
   add_ssh_public_key "$username" "$ssh_key_ed25519"
 }
 
-# Code to check and modify hostname
+# Code for checking and modifying hostname
 print_header "Hostname"
 current_hostname=$(hostname)
 desired_hostname="autosrv"
@@ -126,18 +126,18 @@ for package in "${packages[@]}"; do
   fi
 done
 
-# Configure SSH server
+# Code for configuring SSH server
 print_header "SSH Server Configuration"
 ssh_config_file="/etc/ssh/sshd_config"
 
-# Disable password authentication
+# Code for disabling password authentication
 if grep -q "^PasswordAuthentication" "$ssh_config_file"; then
   sed -i 's/^PasswordAuthentication.*/PasswordAuthentication no/' "$ssh_config_file"
 else
   echo "PasswordAuthentication no" >> "$ssh_config_file"
 fi
 
-# Enable SSH key authentication
+# Code for enabling SSH key authentication
 if grep -q "^PubkeyAuthentication" "$ssh_config_file"; then
   sed -i 's/^PubkeyAuthentication.*/PubkeyAuthentication yes/' "$ssh_config_file"
 else
@@ -178,10 +178,10 @@ else
   print_success "Squid configured to listen on port 3128"
 fi
 
-# Restart Squid service
+# Code for restarting Squid service
 restart_service "squid"
 
-# Configure UFW firewall
+# Code for configuring UFW firewall
 print_header "UFW Firewall Configuration"
 ufw default deny incoming
 ufw default allow outgoing
@@ -201,7 +201,7 @@ ufw allow 3128
 # The code below will enable UFW firewall
 ufw --force enable
 
-# The code below will create user accounts
+# The code for creating user accounts
 print_header "User Accounts"
 declare -A user_accounts=(
   ["dennis"]="yes ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG4rT3vTt99Ox5kndS4HmgTrKBT8SKzhK4rhGkEVGlCI student@generic-vm"
@@ -230,7 +230,7 @@ for username in "${!user_accounts[@]}"; do
     create_user_account "$username" "$sudo_access" "$ssh_key_rsa" "$ssh_key_ed25519"
 done
 
-# The code below will display final configuration summary
+# The code for displaying final configuration summary
 print_header "Final Configuration Summary"
 echo "Hostname: $(hostname)"
 echo
