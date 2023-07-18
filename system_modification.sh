@@ -1,38 +1,38 @@
 #!/bin/bash
 
-# The function to display section headers
+# Code for providing the section headers
 print_header() {
   echo "======================================="
   echo "  $1"
   echo "======================================="
 }
 
-# Function to display success messages
+# Code for providinging the success messages
 print_success() {
   echo "[SUCCESS] $1"
 }
 
-# Function to display error messages
+# The code for providing error messages
 print_error() {
   echo "[ERROR] $1"
 }
 
-# Function to check if a package is installed
+# The code for checking if a package is installed
 is_package_installed() {
   dpkg -s "$1" &>/dev/null
 }
 
-# Function to check if a service is running
+# Code for checking if a service is running
 is_service_running() {
   systemctl is-active --quiet "$1"
 }
 
-# Function to restart a service
+# The code to restart a service
 restart_service() {
   systemctl restart "$1"
 }
 
-# Function to modify configuration files
+# Code for modifying configuration files
 modify_config_file() {
   local file="$1"
   local config="$2"
@@ -45,7 +45,7 @@ modify_config_file() {
   fi
 }
 
-# Function to add SSH public key to authorized_keys
+# The code for adding SSH public key to authorized_keys
 add_ssh_public_key() {
   local user="$1"
   local key="$2"
@@ -59,7 +59,7 @@ add_ssh_public_key() {
   fi
 }
 
-# Function to create user accounts
+# The code for creating the user accounts
 create_user_account() {
   local username="$1"
   local sudo_access="$2"
@@ -82,7 +82,7 @@ create_user_account() {
   add_ssh_public_key "$username" "$ssh_key_ed25519"
 }
 
-# Check and modify hostname
+# Code to check and modify hostname
 print_header "Hostname"
 current_hostname=$(hostname)
 desired_hostname="autosrv"
@@ -94,7 +94,7 @@ else
   print_success "Hostname already set to $desired_hostname"
 fi
 
-# Check and modify network configuration
+# Code to check and modify network configuration
 print_header "Network Configuration"
 config_file="/etc/netplan/01-netcfg.yaml"
 config_data="
@@ -113,7 +113,7 @@ network:
 
 modify_config_file "$config_file" "$config_data"
 
-# Check and install required software packages
+# Code to check and install required software packages
 print_header "Software Installation"
 packages=("openssh-server" "apache2" "squid" "ufw")
 
