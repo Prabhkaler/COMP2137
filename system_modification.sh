@@ -7,7 +7,7 @@ print_header() {
   echo "======================================="
 }
 
-# Code for providinging the success messages
+# Code for providing the success messages
 print_success() {
   echo "[SUCCESS] $1"
 }
