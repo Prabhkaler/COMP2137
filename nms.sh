@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This code helps to implement commands on remote machines using SSH
+# This code helps to implement commands by using SSH
 function run_ssh_command() {
     local host=$1
     local cmd=$2
